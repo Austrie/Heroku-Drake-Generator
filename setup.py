@@ -313,7 +313,7 @@ def setupSecondOrder():
     return table
 
 def test(order = 1):
-    if order == 0
+    if order == 0:
         table1 = setupSecondOrder()
         lastWord = getRandomWord(table1)
         sentence = "First Order: " + lastWord
