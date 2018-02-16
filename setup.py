@@ -312,25 +312,30 @@ def setupSecondOrder():
 
     return table
 
-if __name__ == '__main__':
-    table1 = setupSecondOrder()
-    lastWord = getRandomWord(table1)
-    sentence = "First Order: " + lastWord
-    for i in range(0, 140):
-        lastWord = getRandomWord(table1, lastWord)
-        if lastWord is not ".":
-            sentence += " " + str(lastWord)
-        else:
-            sentence += str(lastWord)
-    print sentence
+def test(order = 1):
+    if order == 0
+        table1 = setupSecondOrder()
+        lastWord = getRandomWord(table1)
+        sentence = "First Order: " + lastWord
+        for i in range(0, 140):
+            lastWord = getRandomWord(table1, lastWord)
+            if lastWord is not ".":
+                sentence += " " + str(lastWord)
+            else:
+                sentence += str(lastWord)
+        return sentence
 
-    table2 = setupSecondOrder()
-    lastWord = getRandomWord(table2)
-    sentence = "Second Order: " + lastWord
-    for i in range(0, 140):
-        lastWord = getRandomWord(table2, lastWord)
-        if lastWord is not ".":
-            sentence += " " + str(lastWord)
-        else:
-            sentence += str(lastWord)
-    print sentence
+    if order >= 1:
+        table2 = setupSecondOrder()
+        lastWord = getRandomWord(table2)
+        sentence = "Second Order: " + lastWord
+        for i in range(0, 140):
+            lastWord = getRandomWord(table2, lastWord)
+            if lastWord is not ".":
+                sentence += " " + str(lastWord)
+            else:
+                sentence += str(lastWord)
+        return sentence
+
+if __name__ == '__main__':
+    print test(1)
