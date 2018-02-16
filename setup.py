@@ -14,14 +14,20 @@ def getRandomWord(table = None, lastWord = None):
     else:
         lis = table.get(lastWord)
 
-    total = 0
-    line = randint(0, lis[0] - 1)
-    for word, amount in lis[1].items():
-        total += amount
-        if (total > line):
-            if "]" in word:
-                return "."
-            return word
+    new_word = lastWord
+    # We do this while-loop to prevent repeating words
+    while new_word == lastWord:
+        total = 0
+        line = randint(0, lis[0] - 1)
+        for word, amount in lis[1].items():
+            total += amount
+            if (total > line):
+                if "]" in word:
+                    new_word = "."
+                    break
+                new_word = word
+                break
+    return new_word
 
 def setup():
     table = HashTable(len(words) + 1)
