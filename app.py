@@ -24,7 +24,7 @@ def home_route():
         "<h3>Feel free to visit:</h3><br/>"\
         "<b>GET: /random/</b> - <br/><pre>For a randomly generated Drake Lyric</pre><br/>"\
         "<b>GET: /random?{originality}/</b> - <br/><pre>For a generated Drake Lyric, where {originality} is a boolean that represents how much do you want the <br/>generated lyric to be like one of his actual lyrics; where 'false' would give you a lyric that sounds very similar to his existing lyrics, <br/>and 'true' would give you a vaguely Drake-like lyrics. <b><i>Example: '/random?originality=true'</i></b></pre> <br/>"\
-        "<b>GET: /random?{originality}&{length}/</b> - <br/><pre>Similar to '/random/{originality}/', but {length} is an integer that represent how long do you want the lyric to be. <b><i>Example: '/random?originality=2&length=140/'</i></b></pre> <br/>"
+        "<b>GET: /random?{originality}&{length}/</b> - <br/><pre>Similar to '/random/{originality}/', but {length} is an integer that represent how long do you want the lyric to be. <b><i>Example: 140 characters of highly original lyrics - '/random?originality=true&length=140/'</i></b></pre> <br/>"
     )
 
 @app.route("/random")
