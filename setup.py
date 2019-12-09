@@ -6,7 +6,7 @@ sys.setrecursionlimit(1000000)
 
 from hashtable import HashTable
 from linkedlist import LinkedList
-from random
+import random
 
 def load_words():
     if path.exists('words.pkl'):
@@ -349,7 +349,7 @@ def generate(first_order = True, num_words=140, table=None):
         lastWord = getRandomWord(table=table)
         sentence += lastWord
         for i in range(0, num_words):
-            lastWord = getRandomWord(table=table, lastWord)
+            lastWord = getRandomWord(table=table, lastWord=lastWord)
             if lastWord is not ".":
                 sentence += " " + str(lastWord)
             else:
@@ -358,7 +358,7 @@ def generate(first_order = True, num_words=140, table=None):
         lastWord = getRandomWord(table=table)
         sentence += lastWord
         for i in range(0, num_words):
-            lastWord = getRandomWord(table=table, lastWord)
+            lastWord = getRandomWord(table=table, lastWord=lastWord)
             if lastWord is not ".":
                 sentence += " " + str(lastWord)
             else:
