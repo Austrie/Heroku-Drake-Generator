@@ -6,7 +6,7 @@ sys.setrecursionlimit(1000000)
 
 from hashtable import HashTable
 from linkedlist import LinkedList
-from random import randint
+from random
 
 def load_words():
     if path.exists('words.pkl'):
@@ -21,7 +21,12 @@ words = load_words()
 def getRandomWord(table, lastWord = None):
     lis = []
     if lastWord is None or lastWord == ".":
-        lis = table.get("[")
+        try:
+            lis = table.get("[")
+        except:
+            key = random.shuffle(table.keys)[0]
+            print "Random start using: " + key
+            lis = table.get(key)
     else:
         lis = table.get(lastWord)
 
@@ -29,7 +34,7 @@ def getRandomWord(table, lastWord = None):
     # We do this while-loop to prevent repeating words
     while new_word == lastWord:
         total = 0
-        line = randint(0, lis[0] - 1)
+        line = random.randint(0, lis[0] - 1)
         for word, amount in lis[1].items():
             total += amount
             if (total > line):
@@ -341,19 +346,19 @@ def generate(first_order = True, num_words=140, table=None):
         table = setupFirstOrder()
     sentence = ""
     if first_order:
-        lastWord = getRandomWord(table)
+        lastWord = getRandomWord(table=table)
         sentence += lastWord
         for i in range(0, num_words):
-            lastWord = getRandomWord(table, lastWord)
+            lastWord = getRandomWord(table=table, lastWord)
             if lastWord is not ".":
                 sentence += " " + str(lastWord)
             else:
                 sentence += str(lastWord)
     else:
-        lastWord = getRandomWord(table)
+        lastWord = getRandomWord(table=table)
         sentence += lastWord
         for i in range(0, num_words):
-            lastWord = getRandomWord(table, lastWord)
+            lastWord = getRandomWord(table=table, lastWord)
             if lastWord is not ".":
                 sentence += " " + str(lastWord)
             else:
