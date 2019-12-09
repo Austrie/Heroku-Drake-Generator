@@ -1,21 +1,8 @@
-import pickle
-import ast
+import cPickle as pickle
 import os.path
 from os import path
-import json
-
-import resource
 import sys
-
-print resource.getrlimit(resource.RLIMIT_STACK)
-print sys.getrecursionlimit()
-
-max_rec = 0x100000
-
-# # May segfault without this line. 0x100 is a guess at the size of each stack frame.
-# resource.setrlimit(resource.RLIMIT_STACK, [0x100 * max_rec, resource.RLIM_INFINITY])
-sys.setrecursionlimit(max_rec)
-
+sys.setrecursionlimit(1000000)
 
 from hashtable import HashTable
 from linkedlist import LinkedList
@@ -57,15 +44,9 @@ def getRandomWord(table = None, lastWord = None):
     return new_word
 
 def load_table(order):
-    if path.exists(order + '_order_table.txt'):
-        return ast.literal_eval(open(order + '_order_table.pkl', 'r'))
+    if path.exists(order + '_order_table.pkl'):
+        return pickle.load(open(order + '_order_table.pkl', 'rb'))
     return None
-
-
-def save_table(order, table):
-    # We have to save as json since Pickle is reaching a recursion limit
-    with open(order + '_order_table.txt', 'w') as file_handle:
-        file_handle.write(str(dictionary))
 
 def setupFirstOrder():
     table = load_table("first")
@@ -361,7 +342,7 @@ def setupSecondOrder():
 def generate(first_order = True, num_words=140, table=None):
     if table is None:
         table = setupFirstOrder()
-    sentence = "Drake Generator says: "
+    sentence = ""
     if first_order:
         lastWord = getRandomWord(table)
         sentence += lastWord
