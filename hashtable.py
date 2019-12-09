@@ -84,6 +84,10 @@ class HashTable(object):
         bucket = self.buckets[index]
 
         print "Calling get for " + key
+        print "bucket:"
+        print bucket
+        print "buckets:"
+        print self.buckets
         for pKey, pValue in bucket.items():
             if pKey == key:
                 return pValue
