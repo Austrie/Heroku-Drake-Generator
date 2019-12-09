@@ -22,13 +22,7 @@ words = load_words()
 def getRandomWord(table, lastWord = None):
     lis = []
     if lastWord is None or lastWord == ".":
-        try:
-            lis = table.get("[")
-        except:
-            keys = table.keys()
-            key = random.sample(keys, len(keys))[0]
-            print "Random start using: " + key
-            lis = table.get(key)
+        lis = table.get("[")
     else:
         lis = table.get(lastWord)
 
