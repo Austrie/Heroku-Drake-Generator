@@ -83,6 +83,7 @@ class HashTable(object):
         index = self._bucket_index(key)
         bucket = self.buckets[index]
 
+        print "Calling get for " + key
         for pKey, pValue in bucket.items():
             if pKey == key:
                 return pValue
