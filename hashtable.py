@@ -12,6 +12,7 @@ class HashTable(object):
             LinkedList(extra_optimizations=extra_optimizations)
             for _ in range(init_size)
         ]
+        self.node_counter = 0 if extra_optimizations else None
 
     def __str__(self):
         """Return a formatted string representation of this hash table."""
@@ -59,7 +60,9 @@ class HashTable(object):
 
     def length(self):
         """Return the number of key-value entries by traversing its buckets.
-        Running time: O(N) because we iterate through all items in the HashTable due to the extra_optimizations flag being False, else O(M) because we only need to go through each LinkedList O(1) Length method"""
+        Running time: O(N) because we iterate through all items in the HashTable due to the extra_optimizations flag being False, else O(1) because we only need to access self.node_counter"""
+        if self.node_counter is not None:
+            return self.node_counter.
         counter = 0
         for bucket in self.buckets:
             for node in bucket.items():
@@ -83,11 +86,6 @@ class HashTable(object):
         index = self._bucket_index(key)
         bucket = self.buckets[index]
 
-        # print "Calling get for " + key
-        # print "bucket:"
-        # print bucket
-        # print "buckets:"
-        # print self.buckets
         for pKey, pValue in bucket.items():
             if pKey == key:
                 return pValue
