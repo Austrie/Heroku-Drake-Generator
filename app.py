@@ -39,7 +39,7 @@ def random_sentence_route():
             table = second_order_table if is_second_order else first_order_table
         )
         return '<h1>Drake Generator says:</h1> </b></b>' + generated_sentence + '... <br/><br/><img src="https://scstylecaster.files.wordpress.com/2016/04/drake-odell-beckham1.jpg">'
-    except Excetion as e:
+    except Exception as e:
         print str(e)
         return "Try again later"
 
