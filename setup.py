@@ -1,12 +1,39 @@
+import pickle
+import ast
+import os.path
+from os import path
+import json
+
+import resource
+import sys
+
+print resource.getrlimit(resource.RLIMIT_STACK)
+print sys.getrecursionlimit()
+
+max_rec = 0x100000
+
+# # May segfault without this line. 0x100 is a guess at the size of each stack frame.
+# resource.setrlimit(resource.RLIMIT_STACK, [0x100 * max_rec, resource.RLIM_INFINITY])
+sys.setrecursionlimit(max_rec)
+
+
 from hashtable import HashTable
 from linkedlist import LinkedList
 from random import randint
 
-words = open("clean_words2.txt", "r").read().splitlines()
+def load_words():
+    if path.exists('words.pkl'):
+        loaded_words = pickle.load(open('words.pkl', 'rb'))
+    else:
+        loaded_words = open("clean_words2.txt", "r").read().splitlines()
+        pickle.dump(loaded_words, open('words.pkl', 'wb'))
+    return loaded_words
+
+words = load_words()
 
 def getRandomWord(table = None, lastWord = None):
     if table is None:
-        table = setup()
+        table = setupFirstOrder()
 
     lis = []
     if lastWord is None or lastWord == ".":
@@ -29,7 +56,21 @@ def getRandomWord(table = None, lastWord = None):
                 break
     return new_word
 
-def setup():
+def load_table(order):
+    if path.exists(order + '_order_table.txt'):
+        return ast.literal_eval(open(order + '_order_table.pkl', 'r'))
+    return None
+
+
+def save_table(order, table):
+    # We have to save as json since Pickle is reaching a recursion limit
+    with open(order + '_order_table.txt', 'w') as file_handle:
+        file_handle.write(str(dictionary))
+
+def setupFirstOrder():
+    table = load_table("first")
+    if table is not None:
+        return table
     table = HashTable(len(words) + 1)
     for i in range(0, len(words)):
         # Our initial implementation of Hashtable is so limited (no resize/load)
@@ -116,7 +157,7 @@ def setup():
         # It's stored inside the innertable
         if end:
             lis = table.get(word)
-            lis[0] += 1;
+            lis[0] += 1
             tup = 0
             try:
                 tup = lis[1].get("]")
@@ -150,9 +191,13 @@ def setup():
                 lis[1].set(word, 1)
                 table.set("[", lis)
 
+    pickle.dump(table, open('first_order_table.pkl', 'wb'))
     return table
 
 def setupSecondOrder():
+    table = load_table("second")
+    if table is not None:
+        return table
     table = HashTable(len(words) + 1)
     for i in range(0, len(words) - 3):
         # Our initial implementation of Hashtable is so limited (no resize/load)
@@ -276,7 +321,7 @@ def setupSecondOrder():
                 lis[0] = 0
                 lis[1] = HashTable(1)
                 table.set(twoWord2, lis)
-            lis[0] += 1;
+            lis[0] += 1
             tup = 0
             try:
                 tup = lis[1].get("]")
@@ -310,32 +355,32 @@ def setupSecondOrder():
                 lis[1].set(twoWord, 1)
                 table.set("[", lis)
 
+    pickle.dump(table, open('second_order_table.pkl', 'wb'))
     return table
 
-def test(order = 1):
-    if order == 0:
-        table1 = setupSecondOrder()
-        lastWord = getRandomWord(table1)
-        sentence = "First Order: " + lastWord
-        for i in range(0, 140):
-            lastWord = getRandomWord(table1, lastWord)
+def generate(first_order = True, num_words=140, table=None):
+    if table is None:
+        table = setupFirstOrder()
+    sentence = "Drake Generator says: "
+    if first_order:
+        lastWord = getRandomWord(table)
+        sentence += lastWord
+        for i in range(0, num_words):
+            lastWord = getRandomWord(table, lastWord)
             if lastWord is not ".":
                 sentence += " " + str(lastWord)
             else:
                 sentence += str(lastWord)
-        return sentence
-
-    if order >= 1:
-        table2 = setupSecondOrder()
-        lastWord = getRandomWord(table2)
-        sentence = "Second Order: " + lastWord
-        for i in range(0, 140):
-            lastWord = getRandomWord(table2, lastWord)
+    else:
+        lastWord = getRandomWord(table)
+        sentence += lastWord
+        for i in range(0, num_words):
+            lastWord = getRandomWord(table, lastWord)
             if lastWord is not ".":
                 sentence += " " + str(lastWord)
             else:
                 sentence += str(lastWord)
-        return sentence
+    return sentence
 
 if __name__ == '__main__':
-    print test(1)
+    print generate(1)
