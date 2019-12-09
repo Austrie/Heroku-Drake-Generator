@@ -18,10 +18,7 @@ def load_words():
 
 words = load_words()
 
-def getRandomWord(table = None, lastWord = None):
-    if table is None:
-        table = setupFirstOrder()
-
+def getRandomWord(table, lastWord = None):
     lis = []
     if lastWord is None or lastWord == ".":
         lis = table.get("[")
@@ -132,7 +129,7 @@ def setupFirstOrder():
         # Technically we could've used the same character for both beginning
         # and ending since they wont live in the same space (table vs innertable)
 
-        # If the word is an end of a sentence (or if it's at the end of the
+        # If the word is the end of a sentence (or if it's at the end of the
         # for-loop then it's automatically the end of the sentence)
         # then we need to account for how likely is it to end the sentence
         # It's stored inside the innertable
@@ -147,7 +144,7 @@ def setupFirstOrder():
                 tup = 0
             lis[1].set("]", tup + 1)
 
-        # If the word is an beginning of a sentence
+        # If the word is the beginning of a sentence
         # then we need to account for how likely is it to start a sentence
         # We use '[' as the character to signify starting a new sentence
         # It's stored in a table of it's own (not an innertable)

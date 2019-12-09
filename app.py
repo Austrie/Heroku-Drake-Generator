@@ -13,7 +13,7 @@ import random
 # main anymore, which would cause a whole lot of errors. '__name__' is dynamic
 app = Flask(__name__)
 first_order_table = setup.setupFirstOrder()
-second_order_table = None
+second_order_table = setup.setupSecondOrder()
 
 # Creating a new base/home http route
 @app.route("/")
@@ -44,4 +44,3 @@ def random_sentence_route():
 
 if __name__ == "__main__":
     app.run()
-    second_order_table = setup.setupSecondOrder()
