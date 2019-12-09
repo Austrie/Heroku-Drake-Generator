@@ -47,8 +47,8 @@ def getRandomWord(table, lastWord = None):
     return new_word
 
 def load_table(order):
-    # if path.exists(order + '_order_table.pkl'):
-    #     return pickle.load(open(order + '_order_table.pkl', 'rb'))
+    if path.exists(order + '_order_table.pkl'):
+        return pickle.load(open(order + '_order_table.pkl', 'rb'))
     return None
 
 def setupFirstOrder():
