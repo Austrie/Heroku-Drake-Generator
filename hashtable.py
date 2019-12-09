@@ -83,17 +83,14 @@ class HashTable(object):
         index = self._bucket_index(key)
         bucket = self.buckets[index]
 
-        print "Calling get for " + key
-        print "bucket:"
-        print bucket
-        print "buckets:"
-        print self.buckets
+        # print "Calling get for " + key
+        # print "bucket:"
+        # print bucket
+        # print "buckets:"
+        # print self.buckets
         for pKey, pValue in bucket.items():
             if pKey == key:
                 return pValue
-            else:
-                print "pKey: " + pKey
-                print "key: " + key
 
         raise KeyError('Key not found: {}'.format(key))
 

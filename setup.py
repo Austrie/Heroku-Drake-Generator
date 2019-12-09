@@ -47,15 +47,15 @@ def getRandomWord(table, lastWord = None):
     return new_word
 
 def load_table(order):
-    if path.exists(order + '_order_table.pkl'):
-        return pickle.load(open(order + '_order_table.pkl', 'rb'))
+    # if path.exists(order + '_order_table.pkl'):
+    #     return pickle.load(open(order + '_order_table.pkl', 'rb'))
     return None
 
 def setupFirstOrder():
     table = load_table("first")
     if table is not None:
         return table
-    table = HashTable(len(words) + 1)
+    table = HashTable(len(words) + 1, True)
     for i in range(0, len(words)):
         # Our initial implementation of Hashtable is so limited (no resize/load)
         # That I might as well use a LinkedList for the innerTable, Because
@@ -182,7 +182,7 @@ def setupSecondOrder():
     table = load_table("second")
     if table is not None:
         return table
-    table = HashTable(len(words) + 1)
+    table = HashTable(len(words) + 1, True)
     for i in range(0, len(words) - 3):
         # Our initial implementation of Hashtable is so limited (no resize/load)
         # That I might as well use a LinkedList for the innerTable, Because
