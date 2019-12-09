@@ -24,7 +24,8 @@ def getRandomWord(table, lastWord = None):
         try:
             lis = table.get("[")
         except:
-            key = random.shuffle(table.keys())[0]
+            keys = table.keys()
+            key = random.sample(keys, len(keys))[0]
             print "Random start using: " + key
             lis = table.get(key)
     else:
@@ -343,7 +344,7 @@ def setupSecondOrder():
 
 def generate(first_order = True, num_words=140, table=None):
     if table is None:
-        table = setupFirstOrder()
+        table = setupFirstOrder() if first_order else setupSecondOrder()
     sentence = ""
     if first_order:
         lastWord = getRandomWord(table=table)
