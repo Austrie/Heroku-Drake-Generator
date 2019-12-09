@@ -27,7 +27,6 @@ def getRandomWord(table, lastWord = None):
             keys = table.keys()
             key = random.sample(keys, len(keys))[0]
             print "Random start using: " + key
-            print keys
             lis = table.get(key)
     else:
         lis = table.get(lastWord)

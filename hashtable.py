@@ -86,6 +86,9 @@ class HashTable(object):
         for pKey, pValue in bucket.items():
             if pKey == key:
                 return pValue
+            else:
+                print "pKey: " + pKey
+                print "key: " + key
 
         raise KeyError('Key not found: {}'.format(key))
 
