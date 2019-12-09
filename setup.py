@@ -24,7 +24,7 @@ def getRandomWord(table, lastWord = None):
         try:
             lis = table.get("[")
         except:
-            key = random.shuffle(table.keys)[0]
+            key = random.shuffle(table.keys())[0]
             print "Random start using: " + key
             lis = table.get(key)
     else:
