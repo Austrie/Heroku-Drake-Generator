@@ -29,18 +29,19 @@ def home_route():
 
 @app.route("/random")
 def random_sentence_route():
-    originality = request.args.get('originality') if request.args.get('originality') else ""
-    length = request.args.get('length') if request.args.get('length') else ""
-    is_second_order = (originality == "true")
-    generated_sentence = setup.generate(
-        first_order = not is_second_order,
-        num_words = int(length) if length.isdigit() else 140, 
-        table= second_order_table if is_second_order else first_order_table
-    )
-    return '<h1>Drake Generator says:</h1> </b></b>' + generated_sentence + '... <br/><br/><img src="https://scstylecaster.files.wordpress.com/2016/04/drake-odell-beckham1.jpg">'
-
-    # index = random.randint(1, 10)
-    # return histogram.random_word_histogram_with_word_frequency_factor(index)
+    try:
+        originality = request.args.get('originality') if request.args.get('originality') else ""
+        length = request.args.get('length') if request.args.get('length') else ""
+        is_second_order = (originality == "true")
+        generated_sentence = setup.generate(
+            first_order = not is_second_order,
+            num_words = int(length) if length.isdigit() else 140, 
+            table = second_order_table if is_second_order else first_order_table
+        )
+        return '<h1>Drake Generator says:</h1> </b></b>' + generated_sentence + '... <br/><br/><img src="https://scstylecaster.files.wordpress.com/2016/04/drake-odell-beckham1.jpg">'
+    except Excetion as e:
+        print str(e)
+        return "Try again later"
 
 if __name__ == "__main__":
     app.run()
