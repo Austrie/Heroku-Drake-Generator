@@ -1,1 +1,1 @@
-web: gunicorn app:app --timeout 90 --workers 1 --log-level=DEBUG
+web: gunicorn app:app --timeout 90 --workers 2 --log-level=DEBUG --preload --timeout 20 --max-requests 1200
