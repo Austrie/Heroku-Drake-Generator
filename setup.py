@@ -13,6 +13,7 @@ def load_words():
         loaded_words = pickle.load(open('words.pkl', 'rb'))
     else:
         loaded_words = open("clean_words2.txt", "r").read().splitlines()
+        loaded_words = random.sample(loaded_words, 10000)
         pickle.dump(loaded_words, open('words.pkl', 'wb'))
     return loaded_words
 
